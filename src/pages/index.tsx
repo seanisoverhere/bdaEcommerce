@@ -1,15 +1,3 @@
-import Head from 'next/head'
+import Home from "@/containers/Home";
 
-export default function Home() {
-  return (
-    <div>
-      <Head>
-        <title>Big Data E-commerce</title>
-        <meta name="description" content="BDE" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      Hello World
-    </div>
-  )
-}
+export default Home;
