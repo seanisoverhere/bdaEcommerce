@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@types/styled-components": "^5.1.26",
     "antd": "^4.23.6",
     "babel-preset-next": "^1.4.0",
+    "framer-motion": "^7.6.2",
     "next": "12.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
