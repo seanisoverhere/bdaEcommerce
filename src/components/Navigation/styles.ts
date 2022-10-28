@@ -2,7 +2,8 @@ import styled from "styled-components";
 import colors from "@/utils/constants/colors";
 
 export const StyledNav = styled.div`
-  position: absolute;
+  position: fixed;
+  transition: 0.4s;
   top: 0;
   z-index: 10;
   display: flex;
@@ -22,12 +23,6 @@ export const NumberText = styled.span`
 export const Text = styled.span`
   font-size: 2rem;
   padding-left: 0.3rem;
-`;
-
-export const FlexContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 55%;
 `;
 
 export const StyledAnchor = styled.a`

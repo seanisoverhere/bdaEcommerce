@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyledNav,
   NumberText,
   Text,
   StyledAnchor,
-  FlexContainer,
 } from "./styles";
 import Link from "next/link";
+import { Space } from "antd";
 
 const Navigation = () => {
+  useEffect(() => {
+    const handler = () => console.log("hi");
+
+    window.addEventListener("scroll", handler);
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
   return (
     <StyledNav>
-      <FlexContainer>
+      <Space size={150}>
         <Link href="/">
           <StyledAnchor>
             <NumberText>01</NumberText>
@@ -30,7 +37,7 @@ const Navigation = () => {
             <Text>ABOUT</Text>
           </StyledAnchor>
         </Link>
-      </FlexContainer>
+      </Space>
     </StyledNav>
   );
 };
