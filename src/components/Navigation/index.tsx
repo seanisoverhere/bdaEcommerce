@@ -21,7 +21,7 @@ const Navigation = () => {
         <Link href="/">
           <StyledAnchor>
             <NumberText>02</NumberText>
-            <Text>PRODUCTS</Text>
+            <Text>SHOP</Text>
           </StyledAnchor>
         </Link>
         <Link href="/">

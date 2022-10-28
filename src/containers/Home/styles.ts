@@ -48,3 +48,8 @@ export const StyledDivider = styled(Divider)`
     position: absolute;
   }
 `;
+
+export const BrandText = styled.div`
+  font-weight: 600;
+  letter-spacing: 0.2rem;
+`;

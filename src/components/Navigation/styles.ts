@@ -8,7 +8,7 @@ export const StyledNav = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 1rem 2rem;
+  padding: 1rem 5rem;
   align-items: start;
 `;
 
@@ -27,7 +27,7 @@ export const Text = styled.span`
 export const FlexContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  width: 55%;
 `;
 
 export const StyledAnchor = styled.a`

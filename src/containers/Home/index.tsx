@@ -1,12 +1,20 @@
 import React from "react";
-import { Container, HeroContainer, HeroText, StyledDivider } from "./styles";
+import {
+  Container,
+  HeroContainer,
+  HeroText,
+  StyledDivider,
+  BrandText,
+} from "./styles";
 
 const Home = () => {
   return (
     <Container>
       <HeroContainer>
         <HeroText>Wear the best.</HeroText>
-        <StyledDivider orientation="right">H&M</StyledDivider>
+        <StyledDivider orientation="right">
+          <BrandText>H&M</BrandText>
+        </StyledDivider>
       </HeroContainer>
       More stuf
     </Container>
