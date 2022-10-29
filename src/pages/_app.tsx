@@ -11,10 +11,6 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Big Data E-commerce</title>
         <meta name="description" content="BDE" />
         <link rel="icon" href="/favicon.ico" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
       </Head>
       <Navigation />
       <Component {...pageProps} />

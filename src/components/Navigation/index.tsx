@@ -1,40 +1,46 @@
-import React, { useEffect } from "react";
-import {
-  StyledNav,
-  NumberText,
-  Text,
-  StyledAnchor,
-} from "./styles";
+import React, { useState, useEffect, useCallback } from "react";
+import { StyledNav, NumberText, Text, StyledAnchor } from "./styles";
 import Link from "next/link";
 import { Space } from "antd";
 
 const Navigation = () => {
-  useEffect(() => {
-    const handler = () => console.log("hi");
+  const [isHeaderShrinked, setIsHeaderShrinked] = useState<boolean>(false);
 
-    window.addEventListener("scroll", handler);
-    return () => window.removeEventListener("scroll", handler);
+  useEffect(() => {
+    const resizeOnScroll = () => {
+      const distanceY = window.scrollY;
+      const shrinkOn = 100;
+
+      if (distanceY > shrinkOn) {
+        setIsHeaderShrinked(true);
+      } else {
+        setIsHeaderShrinked(false);
+      }
+    };
+
+    window.addEventListener("scroll", resizeOnScroll, { passive: true });
+    return () => window.removeEventListener("scroll", resizeOnScroll);
   }, []);
 
   return (
-    <StyledNav>
+    <StyledNav $headerShrinked={isHeaderShrinked}>
       <Space size={150}>
         <Link href="/">
           <StyledAnchor>
-            <NumberText>01</NumberText>
-            <Text>HOME</Text>
+            <NumberText $headerShrinked={isHeaderShrinked}>01</NumberText>
+            <Text $headerShrinked={isHeaderShrinked}>HOME</Text>
           </StyledAnchor>
         </Link>
         <Link href="/">
           <StyledAnchor>
-            <NumberText>02</NumberText>
-            <Text>SHOP</Text>
+            <NumberText $headerShrinked={isHeaderShrinked}>02</NumberText>
+            <Text $headerShrinked={isHeaderShrinked}>SHOP</Text>
           </StyledAnchor>
         </Link>
         <Link href="/">
           <StyledAnchor>
-            <NumberText>03</NumberText>
-            <Text>ABOUT</Text>
+            <NumberText $headerShrinked={isHeaderShrinked}>03</NumberText>
+            <Text $headerShrinked={isHeaderShrinked}>ABOUT</Text>
           </StyledAnchor>
         </Link>
       </Space>

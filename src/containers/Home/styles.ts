@@ -3,8 +3,7 @@ import colors from "@/utils/constants/colors";
 import { Divider } from "antd";
 
 export const Container = styled.div`
-  background-color: ${colors.BACKGROUND.BROWN_1};
-  height: 100vh;
+  background-color: ${colors.BACKGROUND.WHITE};
   position: relative;
   overflow: auto;
 `;
@@ -13,7 +12,7 @@ export const HeroContainer = styled.div`
   background: url("/banner.jpg") top left no-repeat;
   background-size: cover;
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   overflow: auto;
   display: flex;
   justify-content: center;
@@ -32,10 +31,10 @@ export const HeroContainer = styled.div`
 
 export const HeroText = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: 23%;
   left: 5%;
   color: ${colors.TEXT.WHITE};
-  font-size: 9rem;
+  font-size: 11rem;
   font-weight: 600;
 `;
 
