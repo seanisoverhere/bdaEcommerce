@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import colors from "@/utils/constants/colors";
 import { Divider } from "antd";
+import { motion } from "framer-motion";
 
-export const Container = styled.div`
+export const Container = styled(motion.div)`
   position: relative;
   overflow: auto;
 `;
@@ -60,7 +61,7 @@ export const MainContainer = styled.div`
   padding: 2rem 4rem;
 `;
 
-export const RecommendationText = styled.div`
+export const RecommendationText = styled(motion.div)`
   font-size: 7rem;
   font-weight: 600;
   text-align: right;
