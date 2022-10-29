@@ -12,7 +12,9 @@ export const StyledNav = styled.div<{ $headerShrinked: boolean }>`
   padding: 1rem 5rem;
   align-items: start;
   background-color: ${({ $headerShrinked }) =>
-    $headerShrinked ? colors.BACKGROUND.BROWN_3 : "transparent"};
+    $headerShrinked ? colors.BACKGROUND.BROWN_2 : "transparent"};
+  box-shadow: ${({ $headerShrinked }) =>
+    $headerShrinked && "0px 2px 4px 0px rgba(0,0,0,0.2)"};
 `;
 
 export const NumberText = styled.span<{ $headerShrinked: boolean }>`
@@ -29,12 +31,15 @@ export const Text = styled.span<{ $headerShrinked: boolean }>`
   transition: font-size 0.4s;
 `;
 
-export const StyledAnchor = styled.a`
-  color: ${colors.TEXT.WHITE};
+export const StyledAnchor = styled.a<{ $headerShrinked: boolean }>`
+  color: ${({ $headerShrinked }) =>
+    $headerShrinked ? colors.TEXT.GREY_1 : colors.TEXT.WHITE};
   font-size: 2rem;
   display: inline;
+  transition: color 0.4s;
 
   :hover {
-    color: ${colors.TEXT.GREY_2};
+    color: ${({ $headerShrinked }) =>
+      $headerShrinked ? colors.TEXT.GREY_3 : colors.TEXT.GREY_1};
   }
 `;

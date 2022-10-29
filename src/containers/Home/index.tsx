@@ -5,7 +5,14 @@ import {
   HeroText,
   StyledDivider,
   BrandText,
+  MainContainer,
+  RecommendationText,
+  StyledImgBig,
+  StyledImgSmall,
+  ImageText,
+  FlexContainer,
 } from "./styles";
+import { Row, Col } from "antd";
 
 const Home = () => {
   return (
@@ -16,24 +23,25 @@ const Home = () => {
           <BrandText>H&M</BrandText>
         </StyledDivider>
       </HeroContainer>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
-      <div>Hello</div>
+      <MainContainer>
+        <RecommendationText>BEST SELLER</RecommendationText>
+        <Row justify="start" gutter={[80, 0]}>
+          <Col span={8}>
+            <StyledImgBig src="/fashion1.jpg" />
+            <FlexContainer>
+              <ImageText>[1]</ImageText>
+              <ImageText>Studio Collection</ImageText>
+            </FlexContainer>
+          </Col>
+          <Col span={16}>
+            <StyledImgSmall src="/fashion2.jpg" />
+            <FlexContainer style={{ width: "40%" }}>
+              <ImageText>[2]</ImageText>
+              <ImageText>Core Collection</ImageText>
+            </FlexContainer>
+          </Col>
+        </Row>
+      </MainContainer>
     </Container>
   );
 };

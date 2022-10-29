@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { StyledNav, NumberText, Text, StyledAnchor } from "./styles";
 import Link from "next/link";
 import { Space } from "antd";
@@ -26,19 +26,19 @@ const Navigation = () => {
     <StyledNav $headerShrinked={isHeaderShrinked}>
       <Space size={150}>
         <Link href="/">
-          <StyledAnchor>
+          <StyledAnchor $headerShrinked={isHeaderShrinked}>
             <NumberText $headerShrinked={isHeaderShrinked}>01</NumberText>
             <Text $headerShrinked={isHeaderShrinked}>HOME</Text>
           </StyledAnchor>
         </Link>
         <Link href="/">
-          <StyledAnchor>
+          <StyledAnchor $headerShrinked={isHeaderShrinked}>
             <NumberText $headerShrinked={isHeaderShrinked}>02</NumberText>
             <Text $headerShrinked={isHeaderShrinked}>SHOP</Text>
           </StyledAnchor>
         </Link>
         <Link href="/">
-          <StyledAnchor>
+          <StyledAnchor $headerShrinked={isHeaderShrinked}>
             <NumberText $headerShrinked={isHeaderShrinked}>03</NumberText>
             <Text $headerShrinked={isHeaderShrinked}>ABOUT</Text>
           </StyledAnchor>

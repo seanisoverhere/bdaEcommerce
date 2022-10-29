@@ -1,6 +1,7 @@
 export default {
   TEXT: {
     WHITE: "#FFFFFF",
+    BLACK: "#000000",
     GREY_1: "#333333",
     GREY_2: "#666666",
     GREY_3: "#999999",
