@@ -19,15 +19,17 @@ const Navigation = () => {
       const distanceY = window.scrollY;
       const shrinkOn = 100;
 
-      if (router.pathname === "/" && distanceY > shrinkOn) {
+      if (distanceY > shrinkOn) {
         setIsHeaderShrinked(true);
       } else {
         setIsHeaderShrinked(false);
       }
     };
 
-    window.addEventListener("scroll", resizeOnScroll, { passive: true });
-    return () => window.removeEventListener("scroll", resizeOnScroll);
+    if (router.pathname === "/") {
+      window.addEventListener("scroll", resizeOnScroll, { passive: true });
+      return () => window.removeEventListener("scroll", resizeOnScroll);
+    }
   }, [router]);
 
   return (
