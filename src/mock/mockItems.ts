@@ -13,6 +13,16 @@ export const mockItems: ItemList = {
       itemPrice: 10.0,
       image: "/fashion1.jpg",
     },
+    {
+      itemName: "New T-Shirt 3",
+      itemPrice: 10.0,
+      image: "/fashion1.jpg",
+    },
+    {
+      itemName: "New T-Shirt 4",
+      itemPrice: 10.0,
+      image: "/fashion1.jpg",
+    },
   ],
   [CATEGORIES.POPULAR]: [
     {

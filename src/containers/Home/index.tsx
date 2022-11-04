@@ -17,7 +17,7 @@ import { Row, Col } from "antd";
 const Home = () => {
   const variants = {
     initial: {
-      x: 100,
+      x: -100,
       opacity: 0,
     },
     animate: {
@@ -28,9 +28,11 @@ const Home = () => {
   };
 
   return (
-    <Container initial="initial" animate="animate" variants={variants}>
+    <Container>
       <HeroContainer>
-        <HeroText>Wear the best.</HeroText>
+        <HeroText initial="initial" animate="animate" variants={variants}>
+          Wear the best.
+        </HeroText>
         <StyledDivider orientation="right">
           <BrandText>H&M</BrandText>
         </StyledDivider>
