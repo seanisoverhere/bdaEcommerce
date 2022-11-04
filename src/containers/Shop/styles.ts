@@ -24,4 +24,5 @@ export const CategoryText = styled.div<{ $isActive?: boolean }>`
     $isActive ? colors.TEXT.BLACK : colors.BACKGROUND.GREY_2};
   cursor: pointer;
   transition: color 0.3s;
+  position: relative;
 `;

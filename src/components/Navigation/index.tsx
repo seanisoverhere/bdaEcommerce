@@ -9,7 +9,7 @@ const Navigation = () => {
   const [isHeaderShrinked, setIsHeaderShrinked] = useState<boolean>(false);
 
   useEffect(() => {
-    if (router.pathname === "/shop") {
+    if (router.pathname === "/shop" || router.pathname === "/checkout") {
       setIsHeaderShrinked(true);
     } else {
       setIsHeaderShrinked(false);
@@ -47,10 +47,10 @@ const Navigation = () => {
             <Text $headerShrinked={isHeaderShrinked}>SHOP</Text>
           </StyledAnchor>
         </Link>
-        <Link href="/">
+        <Link href="/checkout">
           <StyledAnchor $headerShrinked={isHeaderShrinked}>
             <NumberText $headerShrinked={isHeaderShrinked}>03</NumberText>
-            <Text $headerShrinked={isHeaderShrinked}>ABOUT</Text>
+            <Text $headerShrinked={isHeaderShrinked}>CART</Text>
           </StyledAnchor>
         </Link>
       </Space>

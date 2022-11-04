@@ -19,13 +19,15 @@ const Shop = () => {
       <CategoryContainer>
         <ScrollContainer style={{ display: "flex" }}>
           {Object.entries(categories).map(([key, value]) => (
-            <CategoryText
-              key={key}
-              onClick={() => setSelectedCategory(value)}
-              $isActive={selectedCategory === value}
-            >
-              {value}
-            </CategoryText>
+            <>
+              <CategoryText
+                key={key}
+                onClick={() => setSelectedCategory(value)}
+                $isActive={selectedCategory === value}
+              >
+                {value}
+              </CategoryText>
+            </>
           ))}
         </ScrollContainer>
       </CategoryContainer>
