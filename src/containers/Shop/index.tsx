@@ -4,13 +4,16 @@ import {
   CategoryText,
   ShopContainer,
   ShopTitle,
+  StyledRow,
 } from "./styles";
 import ScrollContainer from "react-indiana-drag-scroll";
 import { categories } from "@/utils/constants/categories";
+import { mockItems } from "@/mock/mockItems";
+import { CATEGORIES } from "@/utils/constants/enums";
 
 const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>(
-    categories["New"]
+    categories[CATEGORIES.NEW]
   );
 
   return (
@@ -18,19 +21,22 @@ const Shop = () => {
       <ShopTitle>CATALOG</ShopTitle>
       <CategoryContainer>
         <ScrollContainer style={{ display: "flex" }}>
-          {Object.entries(categories).map(([key, value]) => (
-            <>
-              <CategoryText
-                key={key}
-                onClick={() => setSelectedCategory(value)}
-                $isActive={selectedCategory === value}
-              >
-                {value}
-              </CategoryText>
-            </>
+          {Object.entries(categories).map(([key, value], index) => (
+            <CategoryText
+              key={`${key}_${value}_${index}`}
+              onClick={() => setSelectedCategory(value)}
+              $isActive={selectedCategory === value}
+            >
+              {value}
+            </CategoryText>
           ))}
         </ScrollContainer>
       </CategoryContainer>
+      <StyledRow>
+        {mockItems[selectedCategory].map((item) => (
+          <div key={item.itemName}>{item.itemName}</div>
+        ))}
+      </StyledRow>
     </ShopContainer>
   );
 };
