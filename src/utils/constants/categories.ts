@@ -1,7 +1,9 @@
+import { CATEGORIES } from "./enums";
+
 export const categories = {
-  New: "New",
-  Popular: "Popular",
-  Shirts: "Shirts",
-  Jeans: "Jeans",
-  Garments: "Garments",
+  [CATEGORIES.NEW]: "New",
+  [CATEGORIES.POPULAR]: "Popular",
+  [CATEGORIES.SHIRTS]: "Shirts",
+  [CATEGORIES.JEANS]: "Jeans",
+  [CATEGORIES.GARMENTS]: "Garments",
 };
