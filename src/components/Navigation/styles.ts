@@ -8,9 +8,9 @@ export const StyledNav = styled.div<{ $headerShrinked: boolean }>`
   z-index: 10;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   padding: 1rem 5rem;
-  align-items: start;
   background-color: ${({ $headerShrinked }) =>
     $headerShrinked ? colors.BACKGROUND.BROWN_2 : "transparent"};
   box-shadow: ${({ $headerShrinked }) =>

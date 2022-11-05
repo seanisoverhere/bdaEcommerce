@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { StyledNav, NumberText, Text, StyledAnchor } from "./styles";
 import Link from "next/link";
-import { Space } from "antd";
+import { Badge, Space, Drawer } from "antd";
 import { useRouter } from "next/router";
+import { ShoppingOutlined } from "@ant-design/icons";
 
 const Navigation = () => {
   const router = useRouter();
   const [isHeaderShrinked, setIsHeaderShrinked] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (router.pathname === "/shop" || router.pathname === "/checkout") {
@@ -54,6 +56,24 @@ const Navigation = () => {
           </StyledAnchor>
         </Link>
       </Space>
+      {isHeaderShrinked && (
+        <Badge count={5}>
+          <ShoppingOutlined
+            style={{ fontSize: "2rem" }}
+            onClick={() => setIsOpen(true)}
+          />
+        </Badge>
+      )}
+      <Drawer
+        title="Shopping Cart"
+        placement="right"
+        onClose={() => setIsOpen(false)}
+        open={isOpen}
+      >
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Drawer>
     </StyledNav>
   );
 };

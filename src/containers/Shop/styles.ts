@@ -43,8 +43,8 @@ export const ImageContainer = styled.div<{ $backgroundUrl: string }>`
     no-repeat;
   background-size: cover;
   background-color: ${colors.BACKGROUND.GREY_1};
-  min-height: 600px;
-  max-height: 600px;
+  min-height: 550px;
+  max-height: 550px;
 `;
 
 export const FlexContainer = styled.div`
