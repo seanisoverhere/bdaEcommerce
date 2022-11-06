@@ -4,3 +4,11 @@ export enum BREAKPOINTS {
   MD = "768px",
   SM = "576px",
 }
+
+export enum CATEGORIES {
+  NEW = "New",
+  POPULAR = "Popular",
+  SHIRTS = "Shirts",
+  JEANS = "Jeans",
+  GARMENTS = "Garments",
+}

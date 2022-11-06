@@ -3,7 +3,7 @@ import colors from "@/utils/constants/colors";
 import { Divider } from "antd";
 import { motion } from "framer-motion";
 
-export const Container = styled(motion.div)`
+export const Container = styled.div`
   position: relative;
   overflow: auto;
 `;
@@ -29,7 +29,7 @@ export const HeroContainer = styled.div`
   }
 `;
 
-export const HeroText = styled.div`
+export const HeroText = styled(motion.div)`
   position: absolute;
   bottom: 0;
   left: 5%;
