@@ -10,11 +10,14 @@ import Link from "next/link";
 import { Badge, Space, Drawer } from "antd";
 import { useRouter } from "next/router";
 import { ShoppingOutlined } from "@ant-design/icons";
+import { useAtom } from "jotai";
+import { cartAtom } from "@/store/cart";
 
 const Navigation = () => {
   const router = useRouter();
   const [isHeaderShrinked, setIsHeaderShrinked] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [cart] = useAtom(cartAtom);
 
   useEffect(() => {
     if (router.pathname === "/shop" || router.pathname === "/checkout") {
@@ -68,7 +71,7 @@ const Navigation = () => {
         </Link>
       </Space>
       {isHeaderShrinked && (
-        <Badge count={5}>
+        <Badge count={cart.length}>
           <ShoppingOutlined
             style={{ fontSize: "2rem" }}
             onClick={() => setIsOpen(true)}
