@@ -31,7 +31,7 @@ export const Text = styled.span<{ $headerShrinked: boolean }>`
   transition: font-size 0.4s;
 `;
 
-export const StyledAnchor = styled.a<{ $headerShrinked: boolean }>`
+export const StyledAnchor = styled.a<{ $headerShrinked?: boolean }>`
   color: ${({ $headerShrinked }) =>
     $headerShrinked ? colors.TEXT.GREY_1 : colors.TEXT.WHITE};
   font-size: 2rem;
@@ -41,5 +41,25 @@ export const StyledAnchor = styled.a<{ $headerShrinked: boolean }>`
   :hover {
     color: ${({ $headerShrinked }) =>
       $headerShrinked ? colors.TEXT.GREY_3 : colors.TEXT.GREY_1};
+  }
+`;
+
+export const StyledButton = styled.button`
+  all: unset;
+  text-align: center;
+  border-radius: 10px;
+  height: 40px;
+  width: 87%;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: ${colors.TEXT.BLACK};
+  background-color: ${colors.BACKGROUND.BROWN_3};
+  cursor: pointer;
+  position: absolute;
+  bottom: 3%;
+  transition: background-color 0.4s;
+
+  :hover {
+    background-color: ${colors.BACKGROUND.BROWN_4};
   }
 `;

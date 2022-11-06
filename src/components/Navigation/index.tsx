@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { StyledNav, NumberText, Text, StyledAnchor } from "./styles";
+import {
+  StyledNav,
+  NumberText,
+  Text,
+  StyledAnchor,
+  StyledButton,
+} from "./styles";
 import Link from "next/link";
 import { Badge, Space, Drawer } from "antd";
 import { useRouter } from "next/router";
@@ -34,6 +40,11 @@ const Navigation = () => {
     }
   }, [router]);
 
+  const proceedToCheckout = () => {
+    setIsOpen(false);
+    router.push("/checkout");
+  };
+
   return (
     <StyledNav $headerShrinked={isHeaderShrinked}>
       <Space size={150}>
@@ -65,14 +76,17 @@ const Navigation = () => {
         </Badge>
       )}
       <Drawer
-        title="Shopping Cart"
+        title="Checkout"
         placement="right"
         onClose={() => setIsOpen(false)}
         open={isOpen}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <p>Item 1</p>
+        <p>Item 2</p>
+        <p>Item 3</p>
+        <StyledButton onClick={proceedToCheckout}>
+          Proceed to checkout
+        </StyledButton>
       </Drawer>
     </StyledNav>
   );
