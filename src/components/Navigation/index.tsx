@@ -5,6 +5,7 @@ import {
   Text,
   StyledAnchor,
   StyledButton,
+  TextContainer,
 } from "./styles";
 import Link from "next/link";
 import { Badge, Space, Drawer } from "antd";
@@ -84,9 +85,11 @@ const Navigation = () => {
         onClose={() => setIsOpen(false)}
         open={isOpen}
       >
-        <p>Item 1</p>
-        <p>Item 2</p>
-        <p>Item 3</p>
+        {cart.length > 0 ? (
+          cart.map((item) => <div>{item.itemName}</div>)
+        ) : (
+          <TextContainer>Your cart is empty </TextContainer>
+        )}
         <StyledButton onClick={proceedToCheckout}>
           Proceed to checkout
         </StyledButton>

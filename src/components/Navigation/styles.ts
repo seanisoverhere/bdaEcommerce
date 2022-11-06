@@ -63,3 +63,7 @@ export const StyledButton = styled.button`
     background-color: ${colors.BACKGROUND.BROWN_4};
   }
 `;
+
+export const TextContainer = styled.div`
+  position: relative;
+`;

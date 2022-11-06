@@ -69,6 +69,7 @@ export const StyledButton = styled.button`
   text-align: center;
   height: 40px;
   width: 100%;
+  margin: 0.8rem 0;
   font-size: 0.875rem;
   font-weight: 600;
   color: ${colors.TEXT.BLACK};

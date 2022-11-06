@@ -18,7 +18,7 @@ import { CATEGORIES } from "@/utils/constants/enums";
 import { FlexContainer } from "../Home/styles";
 import { useAtom } from "jotai";
 import { cartAtom } from "@/store/cart";
-import { PlusCircleOutlined } from "@ant-design/icons";
+import { message } from "antd";
 
 const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>(
@@ -51,6 +51,7 @@ const Shop = () => {
         itemPrice,
       },
     ]);
+    message.success(`${itemName} added to cart`);
   };
 
   return (
