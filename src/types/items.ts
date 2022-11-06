@@ -1,7 +1,8 @@
 export type Item = {
+  itemId: number;
   itemName: string;
   itemPrice: number;
-  image: string;
+  image?: string;
 };
 
 export type ItemList = {

@@ -38,7 +38,7 @@ export const StyledRow = styled(motion(Row))`
 
 export const MotionCol = styled(motion(Col))``;
 
-export const ImageContainer = styled.div<{ $backgroundUrl: string }>`
+export const ImageContainer = styled.div<{ $backgroundUrl?: string }>`
   background: url(${({ $backgroundUrl }) => $backgroundUrl}) center center
     no-repeat;
   background-size: cover;
@@ -62,4 +62,24 @@ export const MonospaceText = styled.div`
 
 export const Price = styled(MonospaceText)`
   color: ${colors.TEXT.GREY_3};
+`;
+
+export const StyledButton = styled.button`
+  all: unset;
+  text-align: center;
+  height: 40px;
+  width: 100%;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: ${colors.TEXT.BLACK};
+  background-color: ${colors.BACKGROUND.WHITE};
+  border: 1px solid black;
+  cursor: pointer;
+  transition: all 0.4s;
+
+  :hover {
+    background-color: ${colors.BACKGROUND.BROWN_4};
+    color: white;
+    border: 1px solid white;
+  }
 `;
