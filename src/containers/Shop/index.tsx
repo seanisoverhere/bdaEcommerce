@@ -65,14 +65,7 @@ const Shop = () => {
   };
 
   const addItemToCart = (item: Item) => {
-    // setCart((prev) => [
-    //   ...prev,
-    //   {
-    //     itemId,
-    //     itemName,
-    //     itemPrice,
-    //   },
-    // ]);
+    setCart((prev) => [...prev, item]);
     message.success(`${item.prod_name} added to cart`);
   };
 
@@ -97,7 +90,9 @@ const Shop = () => {
           itemStore[selectedCategory].map((item, index) => (
             <MotionCol
               key={`${item.article_id}_${index}`}
-              span={8}
+              lg={8}
+              md={12}
+              sm={24}
               initial="initial"
               animate="animate"
               variants={variants}
@@ -123,11 +118,3 @@ const Shop = () => {
 };
 
 export default Shop;
-
-// export const getStaticProps = async () => {
-//   const { getItems, items } = useItem();
-//   await getItems();
-//   return {
-//     props: items,
-//   };
-// };

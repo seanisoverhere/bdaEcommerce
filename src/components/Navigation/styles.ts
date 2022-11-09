@@ -1,5 +1,14 @@
 import styled from "styled-components";
 import colors from "@/utils/constants/colors";
+import { Drawer } from "antd";
+
+export const StyledDrawer = styled(Drawer)`
+  && {
+    .ant-drawer-body {
+      max-height: 800px;
+    }
+  }
+`;
 
 export const StyledNav = styled.div<{ $headerShrinked: boolean }>`
   position: fixed;
@@ -66,4 +75,28 @@ export const StyledButton = styled.button`
 
 export const TextContainer = styled.div`
   position: relative;
+`;
+
+export const CartItemContainer = styled.div`
+  display: flex;
+`;
+
+export const ItemDetails = styled.div`
+  padding: 0 1rem;
+`;
+
+export const MiniImage = styled.img`
+  width: 150px;
+`;
+
+export const Title = styled.span`
+  font-weight: 600;
+`;
+
+export const TotalPrice = styled.div`
+  position: absolute;
+  font-weight: 600;
+  width: 87%;
+  text-align: right;
+  bottom: 8%;
 `;

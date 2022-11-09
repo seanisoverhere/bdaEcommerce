@@ -6,9 +6,15 @@ import {
   StyledAnchor,
   StyledButton,
   TextContainer,
+  CartItemContainer,
+  MiniImage,
+  ItemDetails,
+  Title,
+  StyledDrawer,
+  TotalPrice,
 } from "./styles";
 import Link from "next/link";
-import { Badge, Space, Drawer } from "antd";
+import { Badge, Space, Divider } from "antd";
 import { useRouter } from "next/router";
 import { ShoppingOutlined } from "@ant-design/icons";
 import { useAtom } from "jotai";
@@ -49,6 +55,8 @@ const Navigation = () => {
     router.push("/checkout");
   };
 
+  console.log(cart);
+
   return (
     <StyledNav $headerShrinked={isHeaderShrinked}>
       <Space size={150}>
@@ -79,21 +87,41 @@ const Navigation = () => {
           />
         </Badge>
       )}
-      <Drawer
+      <StyledDrawer
         title="Checkout"
         placement="right"
         onClose={() => setIsOpen(false)}
         open={isOpen}
       >
         {cart.length > 0 ? (
-          cart.map((item) => <div>{item.prod_name}</div>)
+          cart.map((item) => (
+            <>
+              <CartItemContainer>
+                <MiniImage src={item.article_url} />
+                <ItemDetails>
+                  <Space direction="vertical">
+                    <Title>{item.prod_name} x1</Title>
+                    <span>
+                      <Title>Price: </Title>
+                      S${(Number(item.price) * 590).toFixed(2)}
+                    </span>
+                  </Space>
+                </ItemDetails>
+              </CartItemContainer>
+              <Divider />
+            </>
+          ))
         ) : (
           <TextContainer>Your cart is empty </TextContainer>
         )}
+        <TotalPrice>
+          Total: S$
+          {cart.reduce((acc, item) => acc + Number(item.price) * 590, 0)}
+        </TotalPrice>
         <StyledButton onClick={proceedToCheckout}>
           Proceed to checkout
         </StyledButton>
-      </Drawer>
+      </StyledDrawer>
     </StyledNav>
   );
 };
