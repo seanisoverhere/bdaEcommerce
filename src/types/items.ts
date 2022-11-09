@@ -13,3 +13,7 @@ export type Item = {
   date: string;
   price: string;
 };
+
+export type ItemList = {
+  [key: string]: Array<Item>;
+};

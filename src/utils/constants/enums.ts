@@ -6,9 +6,12 @@ export enum BREAKPOINTS {
 }
 
 export enum CATEGORIES {
-  NEW = "New",
-  POPULAR = "Popular",
+  OUTDOOR = "Outdoor",
   SHIRTS = "Shirts",
-  JEANS = "Jeans",
-  GARMENTS = "Garments",
+  TROUSERS = "Trousers",
+  SKIRTS = "Skirts",
+  ACCESSORIES = "Accessories",
+  BLOUSES = "Blouses",
+  SWIMWEAR = "Swimwear",
+  SHOES = "Shoes",
 }

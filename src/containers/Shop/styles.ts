@@ -44,8 +44,8 @@ export const ImageContainer = styled.div<{ $backgroundUrl?: string }>`
     no-repeat;
   background-size: cover;
   background-color: ${colors.BACKGROUND.GREY_1};
-  min-height: 550px;
-  max-height: 550px;
+  min-height: 800px;
+  max-height: 800px;
 `;
 
 export const FlexContainer = styled.div`
@@ -84,4 +84,12 @@ export const StyledButton = styled.button`
     color: white;
     border: 1px solid white;
   }
+`;
+
+export const SpinContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 100%;
 `;

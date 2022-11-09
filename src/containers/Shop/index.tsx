@@ -10,6 +10,7 @@ import {
   ShopTitle,
   StyledRow,
   StyledButton,
+  SpinContainer,
 } from "./styles";
 import ScrollContainer from "react-indiana-drag-scroll";
 import { categories } from "@/utils/constants/categories";
@@ -19,12 +20,12 @@ import { useAtom } from "jotai";
 import { cartAtom } from "@/store/cart";
 import { message, Spin } from "antd";
 import useItem from "@/hooks/useItem";
-import { Item } from "@/types/items";
+import { Item, ItemList } from "@/types/items";
 import { itemAtom } from "@/store/item";
 
 const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>(
-    categories[CATEGORIES.NEW]
+    categories[CATEGORIES.OUTDOOR]
   );
   const [, setCart] = useAtom(cartAtom);
   const [itemStore, setItemStore] = useAtom(itemAtom);
@@ -36,9 +37,20 @@ const Shop = () => {
 
   useEffect(() => {
     if (items.length > 0) {
-      setItemStore(items);
+      const tempStore = items.reduce((acc, item) => {
+        acc[item.garment_group_name] = acc[item.garment_group_name] || [];
+        acc[item.garment_group_name].push(item);
+        return acc;
+      }, {} as ItemList);
+
+      console.log(tempStore);
+      setItemStore(tempStore);
     }
   }, [items]);
+
+  useEffect(() => {
+    console.log(itemStore);
+  }, [itemStore]);
 
   const variants = {
     initial: {
@@ -81,8 +93,8 @@ const Shop = () => {
         </ScrollContainer>
       </CategoryContainer>
       <StyledRow gutter={[48, 48]}>
-        {itemStore.length > 0 ? (
-          itemStore.map((item, index) => (
+        {Object.keys(itemStore).length > 0 ? (
+          itemStore[selectedCategory].map((item, index) => (
             <MotionCol
               key={`${item.article_id}_${index}`}
               span={8}
@@ -101,7 +113,9 @@ const Shop = () => {
             </MotionCol>
           ))
         ) : (
-          <Spin />
+          <SpinContainer>
+            <Spin />
+          </SpinContainer>
         )}
       </StyledRow>
     </ShopContainer>
