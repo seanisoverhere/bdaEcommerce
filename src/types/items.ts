@@ -1,24 +1,15 @@
 export type Item = {
-  itemId: number;
-  itemName: string;
-  itemPrice: number;
-  image?: string;
-  // cut 
-  articleUrl: string
-  articleId: string
-  productCode: string
-  prodName: string
-  garmentGroupName: string
-  garmentGroupNo: string
-  indexGroupName: string
-  indexGroupNo: string
-  clubMemberStatuss: string
-  customerId: string
-  age: string
-  date: string
-  price: string
-};
-
-export type ItemList = {
-  [key: string]: Array<Item>;
+  article_url: string;
+  article_id: string;
+  product_code: string;
+  prod_name: string;
+  garment_group_name: string;
+  garment_group_no: string;
+  index_group_name: string;
+  index_group_no: string;
+  club_member_status: string;
+  customer_id: string;
+  age: string;
+  date: string;
+  price: string;
 };

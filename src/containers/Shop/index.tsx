@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CategoryContainer,
   CategoryText,
@@ -13,18 +13,28 @@ import {
 } from "./styles";
 import ScrollContainer from "react-indiana-drag-scroll";
 import { categories } from "@/utils/constants/categories";
-import { mockItems } from "@/mock/mockItems";
 import { CATEGORIES } from "@/utils/constants/enums";
 import { FlexContainer } from "../Home/styles";
 import { useAtom } from "jotai";
 import { cartAtom } from "@/store/cart";
-import { message } from "antd";
+import { message, Spin } from "antd";
+import useItem from "@/hooks/useItem";
+import { Item } from "@/types/items";
 
 const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>(
     categories[CATEGORIES.NEW]
   );
   const [, setCart] = useAtom(cartAtom);
+  const { getItems, items, isLoading } = useItem();
+
+  useEffect(() => {
+    getItems();
+  }, []);
+
+  useEffect(() => {
+    console.log(items);
+  }, [items]);
 
   const variants = {
     initial: {
@@ -38,20 +48,16 @@ const Shop = () => {
     },
   };
 
-  const addItemToCart = (
-    itemId: number,
-    itemName: string,
-    itemPrice: number
-  ) => {
-    setCart((prev) => [
-      ...prev,
-      {
-        itemId,
-        itemName,
-        itemPrice,
-      },
-    ]);
-    message.success(`${itemName} added to cart`);
+  const addItemToCart = (item: Item) => {
+    // setCart((prev) => [
+    //   ...prev,
+    //   {
+    //     itemId,
+    //     itemName,
+    //     itemPrice,
+    //   },
+    // ]);
+    message.success(`${item.prod_name} added to cart`);
   };
 
   return (
@@ -71,28 +77,28 @@ const Shop = () => {
         </ScrollContainer>
       </CategoryContainer>
       <StyledRow gutter={[48, 48]}>
-        {mockItems[selectedCategory].map((item) => (
-          <MotionCol
-            key={item.itemName}
-            span={8}
-            initial="initial"
-            animate="animate"
-            variants={variants}
-          >
-            <ImageContainer $backgroundUrl={item.image} />
-            <FlexContainer>
-              <MonospaceText>{item.itemName}</MonospaceText>
-              <Price>S${item.itemPrice.toFixed(2)}</Price>
-            </FlexContainer>
-            <StyledButton
-              onClick={() =>
-                addItemToCart(item.itemId, item.itemName, item.itemPrice)
-              }
+        {!isLoading ? (
+          items.map((item) => (
+            <MotionCol
+              key={item.article_id}
+              span={8}
+              initial="initial"
+              animate="animate"
+              variants={variants}
             >
-              Add to Bag
-            </StyledButton>
-          </MotionCol>
-        ))}
+              <ImageContainer $backgroundUrl={item.article_url} />
+              <FlexContainer>
+                <MonospaceText>{item.prod_name}</MonospaceText>
+                <Price>S${Number(item.price) * 290}</Price>
+              </FlexContainer>
+              <StyledButton onClick={() => addItemToCart(item)}>
+                Add to Bag
+              </StyledButton>
+            </MotionCol>
+          ))
+        ) : (
+          <Spin />
+        )}
       </StyledRow>
     </ShopContainer>
   );
