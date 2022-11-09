@@ -33,6 +33,7 @@ export const StyledRow = styled(motion(Row))`
   && {
     width: 100%;
     margin: 1rem 0;
+    padding-bottom: 2rem;
   }
 `;
 

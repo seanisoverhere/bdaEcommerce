@@ -12,6 +12,7 @@
     "@ant-design/icons": "^4.7.0",
     "@types/styled-components": "^5.1.26",
     "antd": "^4.23.6",
+    "apisauce": "^2.1.6",
     "babel-preset-next": "^1.4.0",
     "framer-motion": "^7.6.2",
     "jotai": "^1.9.1",
