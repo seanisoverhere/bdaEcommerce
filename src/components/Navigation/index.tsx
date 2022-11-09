@@ -55,8 +55,6 @@ const Navigation = () => {
     router.push("/checkout");
   };
 
-  console.log(cart);
-
   return (
     <StyledNav $headerShrinked={isHeaderShrinked}>
       <Space size={150}>

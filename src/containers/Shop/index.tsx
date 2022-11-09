@@ -43,14 +43,9 @@ const Shop = () => {
         return acc;
       }, {} as ItemList);
 
-      console.log(tempStore);
       setItemStore(tempStore);
     }
   }, [items]);
-
-  useEffect(() => {
-    console.log(itemStore);
-  }, [itemStore]);
 
   const variants = {
     initial: {
