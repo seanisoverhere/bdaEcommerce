@@ -86,7 +86,7 @@ const Navigation = () => {
         open={isOpen}
       >
         {cart.length > 0 ? (
-          cart.map((item) => <div>{item.itemName}</div>)
+          cart.map((item) => <div>{item.prod_name}</div>)
         ) : (
           <TextContainer>Your cart is empty </TextContainer>
         )}
