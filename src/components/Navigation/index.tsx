@@ -15,7 +15,7 @@ import {
   StyledScrollContainer,
 } from "./styles";
 import Link from "next/link";
-import { Badge, Space, Divider } from "antd";
+import { Badge, Space, Divider, Skeleton } from "antd";
 import { useRouter } from "next/router";
 import { ShoppingOutlined } from "@ant-design/icons";
 import { useAtom } from "jotai";
@@ -117,13 +117,16 @@ const Navigation = () => {
         )}
         <Title>Recommendations for you</Title>
         <StyledScrollContainer>
-          {recommendations.length > 0 &&
+          {recommendations.length > 0 ? (
             recommendations.map((item) => (
               <Space direction="vertical">
                 <MiniImage src={item.article_url} />
                 <div>{item.prod_name}</div>
               </Space>
-            ))}
+            ))
+          ) : (
+            <Skeleton active round />
+          )}
         </StyledScrollContainer>
         <div>
           <TotalPrice>

@@ -13,6 +13,7 @@ import {
   FlexSpace,
   TotalText,
   Subtitle,
+  StyledSpin,
 } from "./styles";
 import { useAtom } from "jotai";
 import { cartAtom } from "@/store/cart";
@@ -22,14 +23,22 @@ import FormField from "@/components/FormField";
 import { useForm } from "react-hook-form";
 import { StyledButton } from "../Shop/styles";
 import useItem from "@/hooks/useItem";
+import { LoadingOutlined } from "@ant-design/icons";
+import { useRouter } from "next/router";
+import { recommendationAtom } from "@/store/recommendation";
+
+const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const Checkout = () => {
+  const router = useRouter();
+  const [, setRecommendationStore] = useAtom(recommendationAtom);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { getRecommendations, recommendations } = useItem()
+  const { getRecommendations, recommendations } = useItem();
 
   const [cart] = useAtom(cartAtom);
   const [cardNumber, setCardNumber] = useState<string>("");
@@ -38,149 +47,161 @@ const Checkout = () => {
   const [expiry, setExpiry] = useState<string>("");
   const [focus, setFocus] = useState<string>("");
   const [address, setAddress] = useState<string>("");
+  const [isSpinning, setIsSpinning] = useState<boolean>(false);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const dataToPost = {
       article_id: cart[0].article_id,
-      date: '2022-11-11',
+      date: "2022-11-11",
       price: Number(cart[0].price) * 590,
       customer_id: process.env.NEXT_PUBLIC_CUSTOMER_ID as string,
       is_purchase: true,
-    }
-    getRecommendations(dataToPost)
+    };
+    setIsSpinning(true);
+    await getRecommendations(dataToPost);
   };
 
   useEffect(() => {
-    console.log(recommendations)
-  }, [recommendations])
+    if (recommendations.length > 0) {
+      setRecommendationStore(recommendations);
+      setIsSpinning(false);
+      router.push("/success");
+    }
+  }, [recommendations]);
 
   return (
-    <CheckoutContainer>
-      <StyledDivider type="vertical" />
-      <CheckoutTitle style={{ marginBottom: "2rem" }}>CHECKOUT</CheckoutTitle>
-      {cart.length > 0 ? (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Subtitle>Credit Card Information</Subtitle>
-          <FlexContainer>
-            <FormWidth>
-              <StyledCard
-                cvc={cvc}
-                expiry={expiry}
-                focused={focus}
-                name={name}
-                number={cardNumber}
-              />
+    <StyledSpin
+      spinning={isSpinning}
+      indicator={loadingIcon}
+      tip="Making payment..."
+    >
+      <CheckoutContainer>
+        <StyledDivider type="vertical" />
+        <CheckoutTitle style={{ marginBottom: "2rem" }}>CHECKOUT</CheckoutTitle>
+        {cart.length > 0 ? (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Subtitle>Credit Card Information</Subtitle>
+            <FlexContainer>
+              <FormWidth>
+                <StyledCard
+                  cvc={cvc}
+                  expiry={expiry}
+                  focused={focus}
+                  name={name}
+                  number={cardNumber}
+                />
 
-              <FieldContainer>
-                <StyledRow gutter={[24, 48]}>
-                  <Col span={12}>
+                <FieldContainer>
+                  <StyledRow gutter={[24, 48]}>
+                    <Col span={12}>
+                      <FormField
+                        register={register}
+                        errors={errors}
+                        inputText="Card Number"
+                        name="number"
+                        type="text"
+                        setValue={setCardNumber}
+                        input={cardNumber}
+                        onFocus={setFocus}
+                        isRequired
+                      />
+                    </Col>
+                    <Col span={12}>
+                      <FormField
+                        register={register}
+                        errors={errors}
+                        inputText="Cardholder Name"
+                        name="name"
+                        type="text"
+                        setValue={setName}
+                        onFocus={setFocus}
+                        input={name}
+                        isRequired
+                      />
+                    </Col>
+                    <Col span={12}>
+                      <FormField
+                        register={register}
+                        errors={errors}
+                        inputText="Card Expiry"
+                        name="expiry"
+                        type="text"
+                        setValue={setExpiry}
+                        input={expiry}
+                        onFocus={setFocus}
+                        isRequired
+                      />
+                    </Col>
+                    <Col span={12}>
+                      <FormField
+                        register={register}
+                        errors={errors}
+                        inputText="CVC"
+                        name="cvc"
+                        type="text"
+                        setValue={setCvc}
+                        onFocus={setFocus}
+                        input={cvc}
+                        isRequired
+                      />
+                    </Col>
+                    <Col span={24}></Col>
+                  </StyledRow>
+                </FieldContainer>
+              </FormWidth>
+              <StyledDivider type="vertical" />
+              <ItemWidth>
+                <Title style={{ fontSize: "1.5rem" }}>Cart</Title>
+                {cart.map((item) => (
+                  <>
+                    <FlexSpace>
+                      <Space>
+                        <MiniImage src={item.article_url} />
+                        <Title>{item.prod_name} x1</Title>
+                      </Space>
+                      <span>S${(Number(item.price) * 590).toFixed(2)}</span>
+                    </FlexSpace>
+                  </>
+                ))}
+                <Divider />
+                <TotalText>
+                  Total: S$
+                  {cart
+                    .reduce((acc, item) => {
+                      return acc + Number(item.price) * 590;
+                    }, 0)
+                    .toFixed(2)}
+                </TotalText>
+
+                <StyledButton type="submit">Pay</StyledButton>
+              </ItemWidth>
+            </FlexContainer>
+            <Subtitle>Shipping Information</Subtitle>
+            <FlexContainer>
+              <FormWidth>
+                <StyledRow gutter={[24, 24]} style={{ width: "100%" }}>
+                  <Col span={24}>
                     <FormField
                       register={register}
                       errors={errors}
-                      inputText="Card Number"
-                      name="number"
+                      inputText="Shipping Address"
+                      name="address"
                       type="text"
-                      setValue={setCardNumber}
-                      input={cardNumber}
+                      setValue={setAddress}
+                      input={address}
                       onFocus={setFocus}
                       isRequired
                     />
                   </Col>
-                  <Col span={12}>
-                    <FormField
-                      register={register}
-                      errors={errors}
-                      inputText="Cardholder Name"
-                      name="name"
-                      type="text"
-                      setValue={setName}
-                      onFocus={setFocus}
-                      input={name}
-                      isRequired
-                    />
-                  </Col>
-                  <Col span={12}>
-                    <FormField
-                      register={register}
-                      errors={errors}
-                      inputText="Card Expiry"
-                      name="expiry"
-                      type="text"
-                      setValue={setExpiry}
-                      input={expiry}
-                      onFocus={setFocus}
-                      isRequired
-                    />
-                  </Col>
-                  <Col span={12}>
-                    <FormField
-                      register={register}
-                      errors={errors}
-                      inputText="CVC"
-                      name="cvc"
-                      type="text"
-                      setValue={setCvc}
-                      onFocus={setFocus}
-                      input={cvc}
-                      isRequired
-                    />
-                  </Col>
-                  <Col span={24}></Col>
                 </StyledRow>
-              </FieldContainer>
-            </FormWidth>
-            <StyledDivider type="vertical" />
-            <ItemWidth>
-              <Title style={{ fontSize: "1.5rem" }}>Cart</Title>
-              {cart.map((item) => (
-                <>
-                  <FlexSpace>
-                    <Space>
-                      <MiniImage src={item.article_url} />
-                      <Title>{item.prod_name} x1</Title>
-                    </Space>
-                    <span>S${(Number(item.price) * 590).toFixed(2)}</span>
-                  </FlexSpace>
-                </>
-              ))}
-              <Divider />
-              <TotalText>
-                Total: S$
-                {cart
-                  .reduce((acc, item) => {
-                    return acc + Number(item.price) * 590;
-                  }, 0)
-                  .toFixed(2)}
-              </TotalText>
-
-              <StyledButton type="submit">Pay</StyledButton>
-            </ItemWidth>
-          </FlexContainer>
-          <Subtitle>Shipping Information</Subtitle>
-          <FlexContainer>
-            <FormWidth>
-              <StyledRow gutter={[24, 24]} style={{ width: "100%" }}>
-                <Col span={24}>
-                  <FormField
-                    register={register}
-                    errors={errors}
-                    inputText="Shipping Address"
-                    name="address"
-                    type="text"
-                    setValue={setAddress}
-                    input={address}
-                    onFocus={setFocus}
-                    isRequired
-                  />
-                </Col>
-              </StyledRow>
-            </FormWidth>
-          </FlexContainer>
-        </form>
-      ) : (
-        <TextContainer>Your cart is empty..</TextContainer>
-      )}
-    </CheckoutContainer>
+              </FormWidth>
+            </FlexContainer>
+          </form>
+        ) : (
+          <TextContainer>Your cart is empty..</TextContainer>
+        )}
+      </CheckoutContainer>
+    </StyledSpin>
   );
 };
 
