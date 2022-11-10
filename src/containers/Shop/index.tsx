@@ -18,7 +18,7 @@ import { CATEGORIES } from "@/utils/constants/enums";
 import { FlexContainer } from "../Home/styles";
 import { useAtom } from "jotai";
 import { cartAtom } from "@/store/cart";
-import { message, Spin } from "antd";
+import { message, Spin, Skeleton } from "antd";
 import useItem from "@/hooks/useItem";
 import { Item, ItemList } from "@/types/items";
 import { itemAtom } from "@/store/item";
@@ -30,8 +30,10 @@ const Shop = () => {
   );
   const [, setCart] = useAtom(cartAtom);
   const [itemStore, setItemStore] = useAtom(itemAtom);
-  const [recommendationStore, setRecommendationStore] = useAtom(recommendationAtom)
-  const { getItems, items, getRecommendations, recommendations } = useItem();
+  const [recommendationStore, setRecommendationStore] =
+    useAtom(recommendationAtom);
+  const { getItems, items, getRecommendations, recommendations, isLoading } =
+    useItem();
 
   useEffect(() => {
     getItems();
@@ -75,9 +77,9 @@ const Shop = () => {
 
   useEffect(() => {
     if (recommendations.length > 0) {
-      setRecommendationStore((prev) => [...prev, ...recommendations])
+      setRecommendationStore((prev) => [...prev, ...recommendations]);
     }
-  }, [recommendations])
+  }, [recommendations]);
 
   return (
     <ShopContainer>
@@ -101,7 +103,7 @@ const Shop = () => {
             <MotionCol
               key={`${item.article_id}_${index}`}
               lg={8}
-              md={12} 
+              md={12}
               sm={24}
               initial="initial"
               animate="animate"
@@ -119,7 +121,7 @@ const Shop = () => {
           ))
         ) : (
           <SpinContainer>
-            <Spin />
+            <Skeleton active={isLoading} round />
           </SpinContainer>
         )}
       </StyledRow>
