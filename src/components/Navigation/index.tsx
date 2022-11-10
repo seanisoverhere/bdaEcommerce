@@ -15,7 +15,7 @@ import {
   StyledScrollContainer,
 } from "./styles";
 import Link from "next/link";
-import { Badge, Space, Divider, Row, Col } from "antd";
+import { Badge, Space, Divider } from "antd";
 import { useRouter } from "next/router";
 import { ShoppingOutlined } from "@ant-design/icons";
 import { useAtom } from "jotai";

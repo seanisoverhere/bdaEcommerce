@@ -5,8 +5,10 @@ import Head from "next/head";
 import Navigation from "@/components/Navigation";
 import { BackTop } from "antd";
 import { AnimatePresence } from "framer-motion";
+import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -16,7 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <AnimatePresence>
         <>
-          <Navigation />
+          {router.pathname !== "/success" && <Navigation />}
           <BackTop />
           <Component {...pageProps} />
         </>
