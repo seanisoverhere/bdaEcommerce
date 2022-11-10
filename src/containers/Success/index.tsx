@@ -1,12 +1,18 @@
 import React from "react";
-import { Result } from "antd";
-import { RecommendationsContainer, ResultsContainer, Title } from "./styles";
+import { Result, Skeleton, Space } from "antd";
+import {
+  Img,
+  RecommendationsContainer,
+  ResultsContainer,
+  Title,
+} from "./styles";
 import { useAtom } from "jotai";
 import { recommendationAtom } from "@/store/recommendation";
+import { StyledScrollContainer } from "@/components/Navigation/styles";
 
 const Success = () => {
   const [recommendations] = useAtom(recommendationAtom);
-  console.log(recommendations)
+  console.log(recommendations);
   return (
     <>
       <ResultsContainer>
@@ -18,6 +24,18 @@ const Success = () => {
       </ResultsContainer>
       <RecommendationsContainer>
         <Title>Recommendations for you:</Title>
+        <StyledScrollContainer>
+          {recommendations.length > 0 ? (
+            recommendations.map((item) => (
+              <Space direction="vertical">
+                <Img src={item.article_url} />
+                <div>{item.prod_name}</div>
+              </Space>
+            ))
+          ) : (
+            <Skeleton active round />
+          )}
+        </StyledScrollContainer>
       </RecommendationsContainer>
     </>
   );

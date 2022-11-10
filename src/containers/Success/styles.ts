@@ -16,3 +16,7 @@ export const Title = styled.div`
   font-weight: 600;
   font-size: 1.5rem;
 `;
+
+export const Img = styled.img`
+  height: 400px;
+`;
