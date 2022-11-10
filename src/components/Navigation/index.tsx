@@ -12,19 +12,22 @@ import {
   Title,
   StyledDrawer,
   TotalPrice,
+  StyledScrollContainer,
 } from "./styles";
 import Link from "next/link";
-import { Badge, Space, Divider } from "antd";
+import { Badge, Space, Divider, Skeleton } from "antd";
 import { useRouter } from "next/router";
 import { ShoppingOutlined } from "@ant-design/icons";
 import { useAtom } from "jotai";
 import { cartAtom } from "@/store/cart";
+import { recommendationAtom } from "@/store/recommendation";
 
 const Navigation = () => {
   const router = useRouter();
   const [isHeaderShrinked, setIsHeaderShrinked] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [cart] = useAtom(cartAtom);
+  const [recommendations] = useAtom(recommendationAtom);
 
   useEffect(() => {
     if (router.pathname === "/shop" || router.pathname === "/checkout") {
@@ -112,13 +115,28 @@ const Navigation = () => {
         ) : (
           <TextContainer>Your cart is empty </TextContainer>
         )}
-        <TotalPrice>
-          Total: S$
-          {cart.reduce((acc, item) => acc + Number(item.price) * 590, 0)}
-        </TotalPrice>
-        <StyledButton onClick={proceedToCheckout}>
-          Proceed to checkout
-        </StyledButton>
+        <Title>Recommendations for you</Title>
+        <StyledScrollContainer>
+          {recommendations.length > 0 ? (
+            recommendations.map((item) => (
+              <Space direction="vertical">
+                <MiniImage src={item.article_url} />
+                <div>{item.prod_name}</div>
+              </Space>
+            ))
+          ) : (
+            <Skeleton active round />
+          )}
+        </StyledScrollContainer>
+        <div>
+          <TotalPrice>
+            Total: S$
+            {cart.reduce((acc, item) => acc + Number(item.price) * 590, 0)}
+          </TotalPrice>
+          <StyledButton onClick={proceedToCheckout}>
+            Proceed to checkout
+          </StyledButton>
+        </div>
       </StyledDrawer>
     </StyledNav>
   );

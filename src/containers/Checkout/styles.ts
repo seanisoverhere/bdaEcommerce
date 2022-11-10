@@ -2,7 +2,7 @@ import styled from "styled-components";
 // @ts-ignore
 import Card from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
-import { Divider, Row, Space } from "antd";
+import { Divider, Row, Space, Spin } from "antd";
 import colors from "@/utils/constants/colors";
 
 export const CheckoutContainer = styled.div`
@@ -84,4 +84,15 @@ export const TotalText = styled.div`
   text-align: right;
   font-weight: 600;
   margin-bottom: 1rem;
+`;
+
+export const StyledSpin = styled(Spin)`
+  && {
+    background: rgba(0, 0, 0, 0.3);
+    top: -10% !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    color: white;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.3) !important;
+  }
 `;

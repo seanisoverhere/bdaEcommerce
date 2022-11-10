@@ -23,4 +23,5 @@ export type RecommendationRequest = {
   date: string
   price: number
   customer_id: string
+  is_purchase: boolean
 }

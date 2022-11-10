@@ -18,10 +18,11 @@ import { CATEGORIES } from "@/utils/constants/enums";
 import { FlexContainer } from "../Home/styles";
 import { useAtom } from "jotai";
 import { cartAtom } from "@/store/cart";
-import { message, Spin } from "antd";
+import { message, Spin, Skeleton } from "antd";
 import useItem from "@/hooks/useItem";
 import { Item, ItemList } from "@/types/items";
 import { itemAtom } from "@/store/item";
+import { recommendationAtom } from "@/store/recommendation";
 
 const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>(
@@ -29,7 +30,10 @@ const Shop = () => {
   );
   const [, setCart] = useAtom(cartAtom);
   const [itemStore, setItemStore] = useAtom(itemAtom);
-  const { getItems, items } = useItem();
+  const [recommendationStore, setRecommendationStore] =
+    useAtom(recommendationAtom);
+  const { getItems, items, getRecommendations, recommendations, isLoading } =
+    useItem();
 
   useEffect(() => {
     getItems();
@@ -59,10 +63,23 @@ const Shop = () => {
     },
   };
 
-  const addItemToCart = (item: Item) => {
+  const addItemToCart = async (item: Item) => {
     setCart((prev) => [...prev, item]);
     message.success(`${item.prod_name} added to cart`);
+    await getRecommendations({
+      article_id: item.article_id,
+      date: "2022-11-11",
+      price: Number(item.price) * 590,
+      customer_id: process.env.NEXT_PUBLIC_CUSTOMER_ID as string,
+      is_purchase: false,
+    });
   };
+
+  useEffect(() => {
+    if (recommendations.length > 0) {
+      setRecommendationStore((prev) => [...prev, ...recommendations]);
+    }
+  }, [recommendations]);
 
   return (
     <ShopContainer>
@@ -86,7 +103,7 @@ const Shop = () => {
             <MotionCol
               key={`${item.article_id}_${index}`}
               lg={8}
-              md={12} 
+              md={12}
               sm={24}
               initial="initial"
               animate="animate"
@@ -104,7 +121,7 @@ const Shop = () => {
           ))
         ) : (
           <SpinContainer>
-            <Spin />
+            <Skeleton active={isLoading} round />
           </SpinContainer>
         )}
       </StyledRow>
