@@ -6,7 +6,7 @@ const bdaApi = apiSauce.create({
 });
 
 const recommendationApi = apiSauce.create({
-  baseURL: process.env.NEXT_PUBLIC_RECOMMENDATION_API,
+  baseURL: process.env.NEXT_PUBLIC_ENGINE_API,
 })
 
 // READ

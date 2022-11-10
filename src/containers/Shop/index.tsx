@@ -86,7 +86,7 @@ const Shop = () => {
             <MotionCol
               key={`${item.article_id}_${index}`}
               lg={8}
-              md={12}
+              md={12} 
               sm={24}
               initial="initial"
               animate="animate"

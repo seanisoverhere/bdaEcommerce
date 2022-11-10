@@ -21,6 +21,6 @@ export type ItemList = {
 export type RecommendationRequest = {
   article_id: string
   date: string
-  price: string
+  price: number
   customer_id: string
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CheckoutContainer,
   CheckoutTitle,
@@ -21,6 +21,7 @@ import { Col, Divider, Space } from "antd";
 import FormField from "@/components/FormField";
 import { useForm } from "react-hook-form";
 import { StyledButton } from "../Shop/styles";
+import useItem from "@/hooks/useItem";
 
 const Checkout = () => {
   const {
@@ -28,6 +29,8 @@ const Checkout = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { getRecommendations, recommendations } = useItem()
+
   const [cart] = useAtom(cartAtom);
   const [cardNumber, setCardNumber] = useState<string>("");
   const [cvc, setCvc] = useState<string>("");
@@ -37,8 +40,18 @@ const Checkout = () => {
   const [address, setAddress] = useState<string>("");
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    const dataToPost = {
+      article_id: cart[0].article_id,
+      date: '2022-11-10',
+      price: Number(cart[0].price) * 590,
+      customer_id: process.env.NEXT_PUBLIC_CUSTOMER_ID as string,
+    }
+    getRecommendations(dataToPost)
   };
+
+  useEffect(() => {
+    console.log(recommendations)
+  }, [recommendations])
 
   return (
     <CheckoutContainer>
@@ -46,26 +59,6 @@ const Checkout = () => {
       <CheckoutTitle style={{ marginBottom: "2rem" }}>CHECKOUT</CheckoutTitle>
       {cart.length > 0 ? (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Subtitle>Shipping Information</Subtitle>
-          <FlexContainer>
-            <FormWidth>
-              <StyledRow gutter={[24, 24]} style={{ width: "100%" }}>
-                <Col span={24}>
-                  <FormField
-                    register={register}
-                    errors={errors}
-                    inputText="Shipping Address"
-                    name="address"
-                    type="text"
-                    setValue={setAddress}
-                    input={address}
-                    onFocus={setFocus}
-                    isRequired
-                  />
-                </Col>
-              </StyledRow>
-            </FormWidth>
-          </FlexContainer>
           <Subtitle>Credit Card Information</Subtitle>
           <FlexContainer>
             <FormWidth>
@@ -161,6 +154,26 @@ const Checkout = () => {
 
               <StyledButton type="submit">Pay</StyledButton>
             </ItemWidth>
+          </FlexContainer>
+          <Subtitle>Shipping Information</Subtitle>
+          <FlexContainer>
+            <FormWidth>
+              <StyledRow gutter={[24, 24]} style={{ width: "100%" }}>
+                <Col span={24}>
+                  <FormField
+                    register={register}
+                    errors={errors}
+                    inputText="Shipping Address"
+                    name="address"
+                    type="text"
+                    setValue={setAddress}
+                    input={address}
+                    onFocus={setFocus}
+                    isRequired
+                  />
+                </Col>
+              </StyledRow>
+            </FormWidth>
           </FlexContainer>
         </form>
       ) : (

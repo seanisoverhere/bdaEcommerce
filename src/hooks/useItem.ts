@@ -23,7 +23,7 @@ const useItem = () => {
     setIsLoading(true)
     const response: ApiResponse<any> = await recommendationApi.getRecommendations(data)
     if (response.ok) {
-      setRecommendations(response.data)
+      setRecommendations(response.data.slice(0, 10))
     }
     setIsLoading(false)
   }
