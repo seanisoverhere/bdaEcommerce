@@ -39,12 +39,13 @@ const Checkout = () => {
   const [focus, setFocus] = useState<string>("");
   const [address, setAddress] = useState<string>("");
 
-  const onSubmit = (data: any) => {
+  const onSubmit = () => {
     const dataToPost = {
       article_id: cart[0].article_id,
-      date: '2022-11-10',
+      date: '2022-11-11',
       price: Number(cart[0].price) * 590,
       customer_id: process.env.NEXT_PUBLIC_CUSTOMER_ID as string,
+      is_purchase: true,
     }
     getRecommendations(dataToPost)
   };

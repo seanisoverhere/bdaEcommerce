@@ -22,6 +22,7 @@ import { message, Spin } from "antd";
 import useItem from "@/hooks/useItem";
 import { Item, ItemList } from "@/types/items";
 import { itemAtom } from "@/store/item";
+import { recommendationAtom } from "@/store/recommendation";
 
 const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>(
@@ -29,7 +30,8 @@ const Shop = () => {
   );
   const [, setCart] = useAtom(cartAtom);
   const [itemStore, setItemStore] = useAtom(itemAtom);
-  const { getItems, items } = useItem();
+  const [recommendationStore, setRecommendationStore] = useAtom(recommendationAtom)
+  const { getItems, items, getRecommendations, recommendations } = useItem();
 
   useEffect(() => {
     getItems();
@@ -59,10 +61,23 @@ const Shop = () => {
     },
   };
 
-  const addItemToCart = (item: Item) => {
+  const addItemToCart = async (item: Item) => {
     setCart((prev) => [...prev, item]);
     message.success(`${item.prod_name} added to cart`);
+    await getRecommendations({
+      article_id: item.article_id,
+      date: "2022-11-11",
+      price: Number(item.price) * 590,
+      customer_id: process.env.NEXT_PUBLIC_CUSTOMER_ID as string,
+      is_purchase: false,
+    });
   };
+
+  useEffect(() => {
+    if (recommendations.length > 0) {
+      setRecommendationStore((prev) => [...prev, ...recommendations])
+    }
+  }, [recommendations])
 
   return (
     <ShopContainer>

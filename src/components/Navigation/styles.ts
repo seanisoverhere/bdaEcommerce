@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import colors from "@/utils/constants/colors";
 import { Drawer } from "antd";
+import ScrollContainer from "react-indiana-drag-scroll";
 
 export const StyledDrawer = styled(Drawer)`
   && {
@@ -99,4 +100,12 @@ export const TotalPrice = styled.div`
   width: 87%;
   text-align: right;
   bottom: 8%;
+`;
+
+export const StyledScrollContainer = styled(ScrollContainer)`
+  && {
+    display: flex;
+    gap: 2rem;
+    padding-top: 1.5rem;
+  }
 `;
