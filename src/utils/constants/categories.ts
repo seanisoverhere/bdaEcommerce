@@ -1,9 +1,12 @@
 import { CATEGORIES } from "./enums";
 
 export const categories = {
-  [CATEGORIES.NEW]: "New",
-  [CATEGORIES.POPULAR]: "Popular",
+  [CATEGORIES.OUTDOOR]: "Outdoor",
   [CATEGORIES.SHIRTS]: "Shirts",
-  [CATEGORIES.JEANS]: "Jeans",
-  [CATEGORIES.GARMENTS]: "Garments",
+  [CATEGORIES.BLOUSES]: "Blouses",
+  [CATEGORIES.ACCESSORIES]: "Accessories",
+  [CATEGORIES.TROUSERS]: "Trousers",
+  [CATEGORIES.SKIRTS]: "Skirts",
+  [CATEGORIES.SWIMWEAR]: "Swimwear",
+  [CATEGORIES.SHOES]: "Shoes",
 };

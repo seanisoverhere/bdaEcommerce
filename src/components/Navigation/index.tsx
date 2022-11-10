@@ -5,16 +5,26 @@ import {
   Text,
   StyledAnchor,
   StyledButton,
+  TextContainer,
+  CartItemContainer,
+  MiniImage,
+  ItemDetails,
+  Title,
+  StyledDrawer,
+  TotalPrice,
 } from "./styles";
 import Link from "next/link";
-import { Badge, Space, Drawer } from "antd";
+import { Badge, Space, Divider } from "antd";
 import { useRouter } from "next/router";
 import { ShoppingOutlined } from "@ant-design/icons";
+import { useAtom } from "jotai";
+import { cartAtom } from "@/store/cart";
 
 const Navigation = () => {
   const router = useRouter();
   const [isHeaderShrinked, setIsHeaderShrinked] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [cart] = useAtom(cartAtom);
 
   useEffect(() => {
     if (router.pathname === "/shop" || router.pathname === "/checkout") {
@@ -68,26 +78,48 @@ const Navigation = () => {
         </Link>
       </Space>
       {isHeaderShrinked && (
-        <Badge count={5}>
+        <Badge count={cart.length}>
           <ShoppingOutlined
             style={{ fontSize: "2rem" }}
             onClick={() => setIsOpen(true)}
           />
         </Badge>
       )}
-      <Drawer
+      <StyledDrawer
         title="Checkout"
         placement="right"
         onClose={() => setIsOpen(false)}
         open={isOpen}
       >
-        <p>Item 1</p>
-        <p>Item 2</p>
-        <p>Item 3</p>
+        {cart.length > 0 ? (
+          cart.map((item) => (
+            <>
+              <CartItemContainer>
+                <MiniImage src={item.article_url} />
+                <ItemDetails>
+                  <Space direction="vertical">
+                    <Title>{item.prod_name} x1</Title>
+                    <span>
+                      <Title>Price: </Title>
+                      S${(Number(item.price) * 590).toFixed(2)}
+                    </span>
+                  </Space>
+                </ItemDetails>
+              </CartItemContainer>
+              <Divider />
+            </>
+          ))
+        ) : (
+          <TextContainer>Your cart is empty </TextContainer>
+        )}
+        <TotalPrice>
+          Total: S$
+          {cart.reduce((acc, item) => acc + Number(item.price) * 590, 0)}
+        </TotalPrice>
         <StyledButton onClick={proceedToCheckout}>
           Proceed to checkout
         </StyledButton>
-      </Drawer>
+      </StyledDrawer>
     </StyledNav>
   );
 };
