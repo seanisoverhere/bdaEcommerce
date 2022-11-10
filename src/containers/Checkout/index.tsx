@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   CheckoutContainer,
   CheckoutTitle,
@@ -9,22 +9,40 @@ import {
 import { useAtom } from "jotai";
 import { cartAtom } from "@/store/cart";
 import {
-  ItemDetails,
   MiniImage,
   TextContainer,
   Title,
 } from "@/components/Navigation/styles";
-import { Divider, Space } from "antd";
+import { Space } from "antd";
+// @ts-ignore
+import Cards from "react-credit-cards";
+import { ICardDetails } from "@/types/card";
+import "react-credit-cards/es/styles-compiled.css";
 
 const Checkout = () => {
   const [cart] = useAtom(cartAtom);
+  const [cardDetails, setCardDetails] = useState<ICardDetails>({
+    cvc: "",
+    expiry: "",
+    focus: "",
+    name: "",
+    number: "",
+  });
 
   return (
     <CheckoutContainer>
       <CheckoutTitle>CHECKOUT</CheckoutTitle>
       {cart.length > 0 ? (
         <FlexContainer>
-          <FormWidth>Some form</FormWidth>
+          <FormWidth>
+            <Cards
+              cvc={cardDetails.cvc}
+              expiry={cardDetails.expiry}
+              focused={cardDetails.focus}
+              name={cardDetails.name}
+              number={cardDetails.number}
+            />
+          </FormWidth>
           <ItemWidth style={{ alignItems: "end" }}>
             {cart.map((item) => (
               <>
