@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import bdaApi from '@/services/api/bdaApi'
+import recommendationApi from '@/services/api/bdaApi'
 import { ApiResponse } from 'apisauce'
-import { Item } from '@/types/items'
+import { Item, RecommendationRequest } from '@/types/items'
 
 const useItem = () => {
   const [items, setItems] = useState<Array<Item>>([])
+  const [recommendations, setRecommendations] = useState<Array<Item>>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
+
 
   const getItems = async () => {
     setIsLoading(true)
@@ -16,10 +19,21 @@ const useItem = () => {
     setIsLoading(false)
   }
 
+  const getRecommendations = async (data: RecommendationRequest) => {
+    setIsLoading(true)
+    const response: ApiResponse<any> = await recommendationApi.getRecommendations(data)
+    if (response.ok) {
+      setRecommendations(response.data)
+    }
+    setIsLoading(false)
+  }
+
   return {
     items,
+    recommendations,
     isLoading, 
-    getItems
+    getItems,
+    getRecommendations,
   }
 
 }

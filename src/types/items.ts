@@ -17,3 +17,10 @@ export type Item = {
 export type ItemList = {
   [key: string]: Array<Item>;
 };
+
+export type RecommendationRequest = {
+  article_id: string
+  date: string
+  price: string
+  customer_id: string
+}
