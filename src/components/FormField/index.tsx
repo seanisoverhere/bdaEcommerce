@@ -14,7 +14,10 @@ type FormFieldProps = {
   isRequired?: boolean;
   name: string;
   type: string;
+  input: string;
   register: UseFormRegister<FieldValues>;
+  setValue: (value: string) => void;
+  onFocus: Function;
   errors: Partial<FieldErrorsImpl<{ [x: string]: any }>>;
 };
 
@@ -23,6 +26,9 @@ const FormField = ({
   isRequired,
   name,
   type,
+  input,
+  setValue,
+  onFocus,
   register,
   errors,
 }: FormFieldProps) => (
@@ -34,7 +40,10 @@ const FormField = ({
     <StyledInput
       {...register(name, { required: isRequired })}
       type={type}
+      value={input}
       $hasError={!!errors[name]}
+      onChange={(e) => setValue(e.target.value)}
+      onFocus={(e) => onFocus(e.target.name)}
     />
     {errors[name] && (
       <AlignError>
